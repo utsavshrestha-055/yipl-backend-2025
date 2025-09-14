@@ -23,5 +23,6 @@ Homestead.json
 Homestead.yaml
 Thumbs.db
 /vendor
+/temp
 .env
 database/database.sqlite

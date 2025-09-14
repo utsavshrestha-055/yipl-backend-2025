@@ -13,36 +13,25 @@ class BookSeeder extends Seeder
      */
     public function run(): void
     {
-        $ram = Author::where('name', 'Ram Bahadur')->first();
-        $karki = Author::where('name', 'Sushila Karki')->first();
-        $oli = Author::where('name', 'Oli Qaeda')->first();
+        $map = [
+            ['title' => 'Rama Bahadur', 'isbn' => '1234567890', 'published_year' => 1949, 'author_email' => 'rambahadur@email.com'],
+            ['title' => 'How I became a Prime Minister', 'isbn' => '1111111111', 'published_year' => 1945, 'author_email' => 'sushilakarki@email.com'],
+            ['title' => "Oli Qaeda", 'isbn' => '9876543211', 'published_year' => 1997, 'author_email' => 'oliqaeda@email.com'],
+            ['title' => 'Gen-Z', 'isbn' => '2222222222', 'published_year' => 1813, 'author_email' => 'oliqaeda@email.com'],
+        ];
 
-        Book::create([
-            'title' => 'Rama Bahadur',
-            'isbn' => '1234567890',
-            'published_year' => 1949,
-            'author_id' => $ram->id,
-        ]);
+        foreach ($map as $m) {
+            $author = Author::where('email', $m['author_email'])->first();
+            if (!$author) continue;
 
-        Book::create([
-            'title' => 'Nepal Gen-Z',
-            'isbn' => '1111111111',
-            'published_year' => 1945,
-            'author_id' => $ram->id,
-        ]);
-
-        Book::create([
-            'title' => 'How I became a Prime Minister',
-            'isbn' => '9876543211',
-            'published_year' => 1997,
-            'author_id' => $karki->id,
-        ]);
-
-        Book::create([
-            'title' => 'Pride and Prejudice',
-            'isbn' => '2222222222',
-            'published_year' => 1813,
-            'author_id' => $oli->id,
-        ]);
+            Book::updateOrCreate(
+                ['isbn' => $m['isbn']],
+                [
+                    'title' => $m['title'],
+                    'published_year' => $m['published_year'],
+                    'author_id' => $author->id,
+                ]
+            );
+        }
     }
 }

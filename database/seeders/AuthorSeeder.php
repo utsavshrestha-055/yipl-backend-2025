@@ -13,8 +13,19 @@ class AuthorSeeder extends Seeder
      */
     public function run(): void
     {
-        Author::create(['name' => 'Ram Bahadur', 'email' => 'rambahadur@email.com']);
-        Author::create(['name' => 'Sushila Karki', 'email' => 'sushilakarki@email.com']);
-        Author::create(['name' => 'Oli Qaeda', 'email' => 'oliqaeda@email.com']);
+
+        $authors = [
+            ['name' => 'Ram Bahadur', 'email' => 'rambahadur@email.com'],
+            ['name' => 'Sushila Karki', 'email' => 'sushilakarki@email.com'],
+            ['name' => 'Oli Qaeda', 'email' => 'oliqaeda@email.com'],
+        ];
+
+        foreach ($authors as $a) {
+            Author::updateOrCreate(
+                ['email' => $a['email']],
+                ['name' => $a['name']]
+            );
+        }
+
     }
 }
