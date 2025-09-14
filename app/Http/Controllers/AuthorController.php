@@ -72,8 +72,22 @@ class AuthorController extends Controller
 
     public function listUI()
     {
-        $authors = Author::with('books')->withCount('books')->get();
-        return view('authors', compact('authors'));
+       $query = Author::with('books')->withCount('books');
+
+    if (request()->filled('name')) {
+        $query->where('name', 'like', '%' . request('name') . '%');
+    }
+
+    $order = strtolower(request('order', 'desc')) === 'asc' ? 'asc' : 'desc';
+    if (request('sort') === 'books') {
+        $query->orderBy('books_count', $order);
+    } else {
+        $query->orderBy('created_at', $order);
+    }
+
+    $authors = $query->paginate(6)->withQueryString();
+
+    return view('authors', compact('authors'));
     }
 
     public function editUI($id)

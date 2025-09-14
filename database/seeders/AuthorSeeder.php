@@ -18,6 +18,13 @@ class AuthorSeeder extends Seeder
             ['name' => 'Ram Bahadur', 'email' => 'rambahadur@email.com'],
             ['name' => 'Sushila Karki', 'email' => 'sushilakarki@email.com'],
             ['name' => 'Oli Qaeda', 'email' => 'oliqaeda@email.com'],
+            ['name' => 'Santosh Shrestha', 'email' => 'santosh.shrestha@email.com'],
+            ['name' => 'Mina Gurung', 'email' => 'mina.gurung@email.com'],
+            ['name' => 'Prakash Thapa', 'email' => 'prakash.thapa@email.com'],
+            ['name' => 'Anjali Adhikari', 'email' => 'anjali.adhikari@email.com'],
+            ['name' => 'Bikash KC', 'email' => 'bikash.kc@email.com'],
+            ['name' => 'Sita Magar', 'email' => 'sita.magar@email.com'],
+            ['name' => 'Ramesh Bhandari', 'email' => 'ramesh.bhandari@email.com'],
         ];
 
         foreach ($authors as $a) {

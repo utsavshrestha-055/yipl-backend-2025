@@ -2,28 +2,39 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>Authors — Library</title>
+  <title>Authors</title>
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
 <body class="bg-gray-100 p-6">
-  <div class="max-w-4xl mx-auto">
+<div class="max-w-5xl mx-auto">
 
     <div class="flex justify-between items-center mb-6">
-      <h1 class="text-2xl font-bold">Authors</h1>
-      <a href="" class="bg-blue-600 text-white px-4 py-2 rounded">Books</a>
+        <h1 class="text-2xl font-bold">Authors</h1>
+        <a href="{{ route('books.ui') }}" class="bg-blue-600 text-white px-4 py-2 rounded">Books</a>
     </div>
 
-    {{-- Success Message --}}
+    <form method="GET" action="{{ route('authors.ui') }}" class="mb-4 flex gap-2">
+        <input type="text" name="name" value="{{ request('name') }}" placeholder="Search by name" class="border p-2 rounded flex-1">
+        <select name="sort" class="border p-2 rounded">
+            <option value="">Sort by</option>
+            <option value="books" {{ request('sort') == 'books' ? 'selected' : '' }}>Number of books</option>
+            <option value="created_at" {{ request('sort') == 'created_at' ? 'selected' : '' }}>Created date</option>
+        </select>
+        <select name="order" class="border p-2 rounded">
+            <option value="desc" {{ request('order') == 'desc' ? 'selected' : '' }}>Descending</option>
+            <option value="asc" {{ request('order') == 'asc' ? 'selected' : '' }}>Ascending</option>
+        </select>
+        <button type="submit" class="bg-gray-600 text-white px-4 py-2 rounded">Search</button>
+    </form>
+
     @if(session('success'))
       <div class="bg-green-100 text-green-700 p-3 rounded mb-4">{{ session('success') }}</div>
     @endif
 
-    {{-- Error Message --}}
     @if(session('error'))
       <div class="bg-red-100 text-red-700 p-3 rounded mb-4">{{ session('error') }}</div>
     @endif
 
-    {{-- Validation Errors --}}
     @if($errors->any())
       <div class="bg-red-100 text-red-700 p-3 rounded mb-4">
         <ul class="list-disc pl-5">
@@ -34,7 +45,6 @@
       </div>
     @endif
 
-    {{-- Add Author Form --}}
     <div class="bg-white p-4 rounded shadow mb-6">
       <form method="POST" action="{{ route('authors.store') }}">
         @csrf
@@ -46,8 +56,7 @@
       </form>
     </div>
 
-    {{-- Authors Table --}}
-    <div class="bg-white p-4 rounded shadow">
+    <div class="bg-white p-4 rounded shadow overflow-x-auto">
       <table class="table-auto w-full border border-gray-300">
         <thead>
           <tr class="bg-gray-200">
@@ -64,7 +73,7 @@
             <td class="px-4 py-2 border">{{ $author->email }}</td>
             <td class="px-4 py-2 border">
               @forelse($author->books as $book)
-                {{ $book->title }}<br>
+                <div >{{ $book->title }}</div><br>
               @empty
                 <span class="text-gray-400">No books</span>
               @endforelse
@@ -85,8 +94,12 @@
           @endforelse
         </tbody>
       </table>
+
+      <div class="mt-4">
+        {{ $authors->appends(request()->query())->links() }}
+      </div>
     </div>
 
-  </div>
+</div>
 </body>
 </html>

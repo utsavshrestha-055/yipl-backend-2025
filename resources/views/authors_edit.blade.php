@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>Edit Author — Library</title>
+  <title>Edit Author</title>
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
 <body class="bg-gray-100 p-6">
@@ -10,7 +10,6 @@
 
     <h1 class="text-2xl font-bold mb-4">Edit Author</h1>
 
-    {{-- Success/Error Messages --}}
     @if(session('success'))
       <div class="bg-green-100 text-green-700 p-3 rounded mb-4">{{ session('success') }}</div>
     @endif
@@ -18,7 +17,6 @@
       <div class="bg-red-100 text-red-700 p-3 rounded mb-4">{{ session('error') }}</div>
     @endif
 
-    {{-- Validation Errors --}}
     @if($errors->any())
       <div class="bg-red-100 text-red-700 p-3 rounded mb-4">
         <ul class="list-disc pl-5">
