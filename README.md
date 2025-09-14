@@ -1,4 +1,3 @@
-
 # YIPL Library Management API
 
 A RESTful API and Web UI for managing books and authors using Laravel and SQLite.
@@ -9,38 +8,49 @@ Provides full CRUD operations, validation, search, sorting, pagination, and inte
 ## Features
 
 ### Authors
-- CRUD: Create, Read, Update, Delete
-- View all books by an author
-- Search by name
-- Sort by number of books or creation date
-- Paginated list
+
+-   CRUD: Create, Read, Update, Delete
+-   View all books by an author
+-   Search by name
+-   Sort by number of books or creation date
+-   Paginated list
 
 ### Books
-- CRUD operations
-- View author details
-- Search by title, author, or published year
-- Sort by title, published year, or creation date
-- Paginated list
+
+-   CRUD operations
+-   View author details
+-   Search by title, author, or published year
+-   Sort by title, published year, or creation date
+-   Paginated list
 
 ### Validation
-- **Author:** name (required, min 2 chars), email (required, unique, valid format)
-- **Book:** title (required), ISBN (10 digits), published year (4 digits)
-- Returns descriptive errors for invalid input
+
+-   **Author:** name (required, min 2 chars), email (required, unique, valid format)
+-   **Book:** title (required), ISBN (10 digits), published year (4 digits)
+-   Returns descriptive errors for invalid input
 
 ### Web UI
-- Single search box for filtering authors/books
-- Edit and delete actions
-- Pagination & sorting in UI
+
+-   Single search box for filtering authors/books
+-   Edit and delete actions
+-   Pagination & sorting in UI
 
 ### API
-- REST endpoints for authors and books
-- JSON responses with proper error handling
+
+-   REST endpoints for authors and books
+-   JSON responses with proper error handling
 
 ---
 
 ## Setup Instructions
 
 ### Unix/macOS (or Windows using Git Bash / WSL)
+
+Clone the project:
+
+```bash
+git clone https://github.com/utsavshrestha-055/yipl-backend-2025.git
+```
 
 Run **once** for initial setup:
 
@@ -177,26 +187,25 @@ DELETE /api/books/{id}
 
 ## How to Use
 
-* Access **Authors UI**: `/authors-ui`
-* Access **Books UI**: `/books-ui`
-* Use single search box to filter results
-* Click book titles in author view to see details
-* Use Edit/Delete buttons for CRUD
-* Use REST API endpoints for integration
+-   Access **Authors UI**: `/authors-ui`
+-   Access **Books UI**: `/books-ui`
+-   Use single search box to filter results
+-   Click book titles in author view to see details
+-   Use Edit/Delete buttons for CRUD
+-   Use REST API endpoints for integration
 
 ---
 
 ## Dependencies
 
-* PHP >= 8.x
-* Composer
-* Laravel 10.x
-
+-   PHP >= 8.x
+-   Composer
+-   Laravel 10.x
 
 ---
 
 ## Notes
 
-* Only run `setup.sh` (or Windows setup commands) **once** for initial setup.
-* For development/testing afterward, use `php artisan serve`.
-* Database file: `database/database.sqlite` with pre-seeded sample data.
+-   Only run `setup.sh` (or Windows setup commands) **once** for initial setup.
+-   For development/testing afterward, use `php artisan serve`.
+-   Database file: `database/database.sqlite` with pre-seeded sample data.
