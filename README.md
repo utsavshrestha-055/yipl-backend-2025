@@ -1,61 +1,202 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+# YIPL Library Management API
 
-## About Laravel
+A RESTful API and Web UI for managing books and authors using Laravel and SQLite.
+Provides full CRUD operations, validation, search, sorting, pagination, and interactive web views.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+---
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Features
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+### Authors
+- CRUD: Create, Read, Update, Delete
+- View all books by an author
+- Search by name
+- Sort by number of books or creation date
+- Paginated list
 
-## Learning Laravel
+### Books
+- CRUD operations
+- View author details
+- Search by title, author, or published year
+- Sort by title, published year, or creation date
+- Paginated list
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+### Validation
+- **Author:** name (required, min 2 chars), email (required, unique, valid format)
+- **Book:** title (required), ISBN (10 digits), published year (4 digits)
+- Returns descriptive errors for invalid input
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+### Web UI
+- Single search box for filtering authors/books
+- Edit and delete actions
+- Pagination & sorting in UI
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### API
+- REST endpoints for authors and books
+- JSON responses with proper error handling
 
-## Laravel Sponsors
+---
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+## Setup Instructions
 
-### Premium Partners
+### Unix/macOS (or Windows using Git Bash / WSL)
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+Run **once** for initial setup:
 
-## Contributing
+```bash
+chmod +x setup.sh      # Ensure the setup script has execution permission
+./setup.sh
+```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+This will:
 
-## Code of Conduct
+1. Check for PHP and Composer
+2. Create `.env` from `.env.example` if missing
+3. Install dependencies
+4. Create `database/database.sqlite`
+5. Generate application key
+6. Run migrations and seed sample data
+7. Clear all caches
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+After initial setup, run the server:
 
-## Security Vulnerabilities
+```bash
+php artisan serve
+```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+Visit: [http://127.0.0.1:8000](http://127.0.0.1:8000)
 
-## License
+---
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+### Windows (CMD / PowerShell)
+
+Run these **once** for setup:
+
+```bat
+copy .env.example .env
+composer install
+type nul > database\database.sqlite
+php artisan key:generate
+php artisan migrate --seed
+php artisan config:clear
+php artisan cache:clear
+php artisan route:clear
+php artisan view:clear
+```
+
+After setup:
+
+```bat
+php artisan serve
+```
+
+Visit: [http://127.0.0.1:8000](http://127.0.0.1:8000)
+
+---
+
+## API Endpoints
+
+### Authors
+
+```
+GET /api/authors
+POST /api/authors
+GET /api/authors/{id}
+PUT /api/authors/{id}
+DELETE /api/authors/{id}
+```
+
+**Example Response (GET /api/authors):**
+
+```json
+[
+    {
+        "id": 1,
+        "name": "Ram Bahadur",
+        "email": "rambahadur@email.com",
+        "books_count": 2,
+        "books": [
+            {
+                "id": 1,
+                "title": "Rama Bahadur",
+                "isbn": "1234567890",
+                "published_year": 1949
+            },
+            {
+                "id": 2,
+                "title": "Nepal History",
+                "isbn": "0987654321",
+                "published_year": 1955
+            }
+        ]
+    }
+]
+```
+
+### Books
+
+```
+GET /api/books
+POST /api/books
+GET /api/books/{id}
+PUT /api/books/{id}
+DELETE /api/books/{id}
+```
+
+**Example Response (GET /api/books):**
+
+```json
+[
+    {
+        "id": 1,
+        "title": "Rama Bahadur",
+        "isbn": "1234567890",
+        "published_year": 1949,
+        "author": {
+            "id": 1,
+            "name": "Ram Bahadur",
+            "email": "rambahadur@email.com"
+        }
+    },
+    {
+        "id": 2,
+        "title": "Nepal History",
+        "isbn": "0987654321",
+        "published_year": 1955,
+        "author": {
+            "id": 1,
+            "name": "Ram Bahadur",
+            "email": "rambahadur@email.com"
+        }
+    }
+]
+```
+
+---
+
+## How to Use
+
+* Access **Authors UI**: `/authors-ui`
+* Access **Books UI**: `/books-ui`
+* Use single search box to filter results
+* Click book titles in author view to see details
+* Use Edit/Delete buttons for CRUD
+* Use REST API endpoints for integration
+
+---
+
+## Dependencies
+
+* PHP >= 8.x
+* Composer
+* Laravel 10.x
+
+
+---
+
+## Notes
+
+* Only run `setup.sh` (or Windows setup commands) **once** for initial setup.
+* For development/testing afterward, use `php artisan serve`.
+* Database file: `database/database.sqlite` with pre-seeded sample data.
