@@ -50,6 +50,7 @@ Clone the project:
 
 ```bash
 git clone https://github.com/utsavshrestha-055/yipl-backend-2025.git
+cd yipl-backend-2025
 ```
 
 Run **once** for initial setup:
