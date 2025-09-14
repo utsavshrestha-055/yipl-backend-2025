@@ -45,7 +45,7 @@ Provides full CRUD operations, validation, search, sorting, pagination, and inte
 Run **once** for initial setup:
 
 ```bash
-chmod +x setup.sh      # Ensure the setup script has execution permission
+chmod +x setup.sh
 ./setup.sh
 ```
 
